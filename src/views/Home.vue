@@ -12,10 +12,10 @@
 <script>
 // @ is an alias to /src
 import Header from "@/components/Header.vue";
-import Hero from "@/components/Hero.vue";
-import WomenBanner from "@/components/WomenBanner.vue";
-import InstaGallery from "@/components/InstaGallery.vue";
-import Partner from "@/components/Partner.vue";
+import Hero from "@/components/home/Hero.vue";
+import WomenBanner from "@/components/home/WomenBanner.vue";
+import InstaGallery from "@/components/home/InstaGallery.vue";
+import Partner from "@/components/home/Partner.vue";
 import Footer from "@/components/Footer.vue";
 
 export default {
