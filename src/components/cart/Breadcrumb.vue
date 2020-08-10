@@ -8,7 +8,7 @@
             <router-link to="/">
               <i class="fa fa-home"></i> Home
             </router-link>
-            <span>Detail</span>
+            <span>Shopping Cart</span>
           </div>
         </div>
       </div>
@@ -19,6 +19,6 @@
 
 <script>
 export default {
-  name: "Breadcrumb",
+  name: "BreadCart",
 };
 </script>
