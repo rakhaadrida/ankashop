@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Product from '../views/Product.vue'
+import KapalProduct from '../views/KapalProduct.vue'
 import ShoppingCart from '../views/ShoppingCart.vue'
 import Success from '../views/Success.vue'
 
@@ -16,6 +17,11 @@ const routes = [{
     path: '/product',
     name: 'Product',
     component: Product
+  },
+  {
+    path: '/kapalProduct',
+    name: 'KapalProduct',
+    component: KapalProduct
   },
   {
     path: '/cart',

@@ -7,7 +7,7 @@
           <carousel class="product-slider" :items="3" :dots="false" :nav="false" :autoplay="true">
             <div class="product-item">
               <div class="pi-pic">
-                <img src="img/mickey1.jpg" alt />
+                <img src="img/products/bag-1.jpg" alt />
                 <ul>
                   <li class="w-icon active">
                     <router-link to="/product">
@@ -15,24 +15,24 @@
                     </router-link>
                   </li>
                   <li class="quick-view">
-                    <router-link to="/product">+ Quick View</router-link>
+                    <router-link to="/product">Quick View</router-link>
                   </li>
                 </ul>
               </div>
               <div class="pi-text">
-                <div class="catagory-name">Coat</div>
+                <div class="catagory-name">Bag</div>
                 <router-link to="/product">
-                  <h5>Mickey Baggy</h5>
+                  <h5>August Sling Bag</h5>
                 </router-link>
                 <div class="product-price">
-                  $14.00
-                  <span>$35.00</span>
+                  $17.00
+                  <span>$25.00</span>
                 </div>
               </div>
             </div>
             <div class="product-item">
               <div class="pi-pic">
-                <img src="img/products/women-2.jpg" alt />
+                <img src="img/products/kapal-1.jpg" alt />
                 <ul>
                   <li class="w-icon active">
                     <a href="#">
@@ -40,21 +40,21 @@
                     </a>
                   </li>
                   <li class="quick-view">
-                    <a href="#">+ Quick View</a>
+                    <router-link to="/kapalProduct">Quick View</router-link>
                   </li>
                 </ul>
               </div>
               <div class="pi-text">
-                <div class="catagory-name">Shoes</div>
+                <div class="catagory-name">T-Shirts</div>
                 <a href="#">
-                  <h5>Guangzhou sweater</h5>
+                  <h5>Admit Your Ignorance</h5>
                 </a>
-                <div class="product-price">$13.00</div>
+                <div class="product-price">$20.00</div>
               </div>
             </div>
             <div class="product-item">
               <div class="pi-pic">
-                <img src="img/products/women-3.jpg" alt />
+                <img src="img/products/tas-1.jpg" alt />
                 <ul>
                   <li class="w-icon active">
                     <a href="#">
@@ -62,21 +62,21 @@
                     </a>
                   </li>
                   <li class="quick-view">
-                    <a href="#">+ Quick View</a>
+                    <a href="#">Quick View</a>
                   </li>
                 </ul>
               </div>
               <div class="pi-text">
-                <div class="catagory-name">Towel</div>
+                <div class="catagory-name">Bag</div>
                 <a href="#">
-                  <h5>Pure Pineapple</h5>
+                  <h5>Bird Totebag</h5>
                 </a>
-                <div class="product-price">$34.00</div>
+                <div class="product-price">$23.00</div>
               </div>
             </div>
             <div class="product-item">
               <div class="pi-pic">
-                <img src="img/products/women-4.jpg" alt />
+                <img src="img/products/dress-1.jpg" alt />
                 <ul>
                   <li class="w-icon active">
                     <a href="#">
@@ -84,21 +84,24 @@
                     </a>
                   </li>
                   <li class="quick-view">
-                    <a href="#">+ Quick View</a>
+                    <a href="#">Quick View</a>
                   </li>
                   <li class="w-icon">
-                    <a href="#">
+                    <!-- <a href="#">
                       <i class="fa fa-random"></i>
-                    </a>
+                    </a>-->
                   </li>
                 </ul>
               </div>
               <div class="pi-text">
-                <div class="catagory-name">Towel</div>
+                <div class="catagory-name">Dress</div>
                 <a href="#">
-                  <h5>Converse Shoes</h5>
+                  <h5>Rusuk Putih</h5>
                 </a>
-                <div class="product-price">$34.00</div>
+                <div class="product-price">
+                  $28.00
+                  <span>$35.00</span>
+                </div>
               </div>
             </div>
           </carousel>
