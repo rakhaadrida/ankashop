@@ -3,11 +3,11 @@
   <section class="women-banner spad">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-lg-12 mt-5">
+        <div class="col-lg-12 mt-5" v-if="products.length > 0">
           <carousel class="product-slider" :items="3" :dots="false" :nav="false" :autoplay="true">
-            <div class="product-item">
+            <div class="product-item" v-for="itemProduct in products" :key="itemProduct.id">
               <div class="pi-pic">
-                <img src="img/products/bag-1.jpg" alt />
+                <img :src="itemProduct.galleries[0].photo" alt />
                 <ul>
                   <li class="w-icon active">
                     <router-link to="/product">
@@ -20,13 +20,13 @@
                 </ul>
               </div>
               <div class="pi-text">
-                <div class="catagory-name">Bag</div>
+                <div class="catagory-name">{{ itemProduct.type }}</div>
                 <router-link to="/product">
-                  <h5>August Sling Bag</h5>
+                  <h5>{{ itemProduct.name }}</h5>
                 </router-link>
                 <div class="product-price">
                   $17.00
-                  <span>$25.00</span>
+                  <span>{{ itemProduct.price }}</span>
                 </div>
               </div>
             </div>
@@ -106,6 +106,9 @@
             </div>
           </carousel>
         </div>
+        <div class="col-lg-12" v-else>
+          <p>Data Produk Tidak Ditemukan</p>
+        </div>
       </div>
     </div>
   </section>
@@ -114,11 +117,24 @@
 
 <script>
 import carousel from "vue-owl-carousel";
+import axios from "axios";
 
 export default {
   name: "WomenBanner",
   components: {
     carousel,
+  },
+  data() {
+    return {
+      products: [],
+    };
+  },
+  mounted() {
+    axios
+      .get("http://shayna-backend.belajarkoding.com/api/products")
+      .then((res) => (this.products = res.data.data.data))
+
+      .catch((err) => console.log(err));
   },
 };
 </script>
