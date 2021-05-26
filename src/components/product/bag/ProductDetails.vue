@@ -9,7 +9,7 @@
               <div class="product-pic-zoom">
                 <img class="product-big-img" :src="picDefault" alt />
               </div>
-              <div class="product-thumbs">
+              <div class="product-thumbs" v-if="productDetails.gallery.length > 0">
                 <carousel
                   class="product-thumbs-track ps-slider"
                   :nav="false"
@@ -18,43 +18,13 @@
                   :items="3"
                 >
                   <div
+                    v-for="ss in productDetails.gallery"
+                    :key="ss.id"
                     class="pt"
-                    @click="changePic(picThumbs[0])"
-                    :class="picThumbs[0] == picDefault ? 'active' : '' "
+                    @click="changePic(ss.photo)"
+                    :class="ss.photo == picDefault ? 'active' : '' "
                   >
-                    <img src="img/products/bag-1.jpg" alt />
-                  </div>
-
-                  <div
-                    class="pt"
-                    @click="changePic(picThumbs[1])"
-                    :class="picThumbs[1] == picDefault ? 'active' : '' "
-                  >
-                    <img src="img/products/bag-2.jpg" alt />
-                  </div>
-
-                  <div
-                    class="pt"
-                    @click="changePic(picThumbs[2])"
-                    :class="picThumbs[2] == picDefault ? 'active' : '' "
-                  >
-                    <img src="img/products/bag-3.jpg" alt />
-                  </div>
-
-                  <div
-                    class="pt"
-                    @click="changePic(picThumbs[3])"
-                    :class="picThumbs[3] == picDefault ? 'active' : '' "
-                  >
-                    <img src="img/products/bag-4.jpg" alt />
-                  </div>
-
-                  <div
-                    class="pt"
-                    @click="changePic(picThumbs[4])"
-                    :class="picThumbs[4] == picDefault ? 'active' : '' "
-                  >
-                    <img src="img/products/bag-5.jpg" alt />
+                    <img :src="ss.photo" alt />
                   </div>
                 </carousel>
               </div>
@@ -62,31 +32,17 @@
             <div class="col-lg-6">
               <div class="product-details text-left">
                 <div class="pd-title">
-                  <span>Bag</span>
-                  <h3>August Sling Bag</h3>
+                  <span>{{ productDetails.type }}</span>
+                  <h3>{{ productDetails.name }}</h3>
                 </div>
                 <div class="pd-desc">
-                  <p>Stylish dan elegant sling bag with two color available. National Flag and Garuda Symbol make this bag looks powerful. Grab this product and celebrate our Indepedence Month with more fashionable looks.</p>
-                  <p>
-                    <b>Material :</b>
-                    <br />Cordura 1000D
-                    <br />Synthetic Leather
-                    <br />YKK Vislon Zipper
-                    <br />
-                  </p>
-                  <p>
-                    <b>Colors:</b> Green & Black.
-                  </p>
-                  <p>
-                    <b>Dimensions:</b>
-                    <br />Length X Width X Height
-                    <br />19cm X 8cm X 30cm
-                  </p>
-                  <p></p>
-                  <h4>$17.00</h4>
+                  <p v-html="productDetails.description"></p>
+                  <h4>${{ productDetails.price }}</h4>
                 </div>
                 <div class="quantity">
-                  <router-link to="/cart" class="primary-btn pd-cart">Add To Cart</router-link>
+                  <router-link to="/cart">
+                    <a @click="saveKeranjang(productDetails.id, productDetails.name, productDetails.price, productDetails.gallery[0].photo)" href="#" class="primary-btn pd-cart">Add To Cart</a>
+                  </router-link>
                 </div>
               </div>
             </div>
@@ -100,6 +56,7 @@
 
 <script>
 import carousel from "vue-owl-carousel";
+import axios from "axios";
 
 export default {
   name: "ProductDetails",
@@ -108,20 +65,49 @@ export default {
   },
   data() {
     return {
-      picDefault: "img/products/bag-1.jpg",
-      picThumbs: [
-        "img/products/bag-1.jpg",
-        "img/products/bag-2.jpg",
-        "img/products/bag-3.jpg",
-        "img/products/bag-4.jpg",
-        "img/products/bag-5.jpg",
-      ],
+      picDefault: "",
+      productDetails: [],
+      keranjangUser: []
     };
   },
   methods: {
     changePic(srcPic) {
       this.picDefault = srcPic;
     },
+    setDataPicture(data) {
+      this.productDetails = data;
+      this.picDefault = data.gallery[0].photo;
+    },
+    saveKeranjang(idProduct, nameProduct, priceProduct, photoProduct) {
+      var productStored = {
+        "id": idProduct,
+        "name": nameProduct,
+        "price": priceProduct,
+        "photo": photoProduct
+      }
+
+      this.keranjangUser.push(productStored);
+      const parsed = JSON.stringify(this.keranjangUser);
+      localStorage.setItem('keranjangUser', parsed);
+    }
+  },
+  mounted() {
+    if (localStorage.getItem('keranjangUser')) {
+      try {
+        this.keranjangUser = JSON.parse(localStorage.getItem('keranjangUser'));
+      } catch(e) {
+        localStorage.removeItem('keranjangUser');
+      }
+    }
+    axios
+      .get("http://ankashop.test/api/product", {
+        params: {
+          id: this.$route.params.id
+        }
+      })
+      .then((res) => (this.setDataPicture(res.data.data)))
+
+      .catch((err) => console.log(err));
   },
 };
 </script>

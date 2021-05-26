@@ -7,15 +7,17 @@
           <carousel class="product-slider" :items="3" :dots="false" :nav="false" :autoplay="true">
             <div class="product-item" v-for="itemProduct in products" :key="itemProduct.id">
               <div class="pi-pic">
-                <img :src="itemProduct.galleries[0].photo" alt />
+                <img :src="itemProduct.gallery[0].photo" alt />
                 <ul>
-                  <li class="w-icon active">
-                    <router-link to="/product">
+                  <li @click="saveKeranjang(itemProduct.id, itemProduct.name, itemProduct.price, itemProduct.gallery[0].photo)" class="w-icon active">
+                    <!-- <router-link to="/cart"> -->
+                    <a href="#">
                       <i class="icon_bag_alt"></i>
-                    </router-link>
+                    </a>
+                    <!-- </router-link> -->
                   </li>
                   <li class="quick-view">
-                    <router-link to="/product">Quick View</router-link>
+                    <router-link v-bind:to="'/product/'+itemProduct.id">Quick View</router-link>
                   </li>
                 </ul>
               </div>
@@ -25,12 +27,12 @@
                   <h5>{{ itemProduct.name }}</h5>
                 </router-link>
                 <div class="product-price">
-                  $17.00
-                  <span>{{ itemProduct.price }}</span>
+                  ${{ itemProduct.price }}
+                  <span>{{ itemProduct.price + 5}}</span>
                 </div>
               </div>
             </div>
-            <div class="product-item">
+            <!-- <div class="product-item">
               <div class="pi-pic">
                 <img src="img/products/kapal-1.jpg" alt />
                 <ul>
@@ -87,9 +89,6 @@
                     <a href="#">Quick View</a>
                   </li>
                   <li class="w-icon">
-                    <!-- <a href="#">
-                      <i class="fa fa-random"></i>
-                    </a>-->
                   </li>
                 </ul>
               </div>
@@ -103,7 +102,7 @@
                   <span>$35.00</span>
                 </div>
               </div>
-            </div>
+            </div> -->
           </carousel>
         </div>
         <div class="col-lg-12" v-else>
@@ -127,14 +126,39 @@ export default {
   data() {
     return {
       products: [],
+      keranjangUser: []
     };
   },
   mounted() {
     axios
-      .get("http://shayna-backend.belajarkoding.com/api/products")
+      .get("http://ankashop.test/api/product")
       .then((res) => (this.products = res.data.data.data))
 
       .catch((err) => console.log(err));
+
+    if (localStorage.getItem('keranjangUser')) {
+      try {
+        this.keranjangUser = JSON.parse(localStorage.getItem('keranjangUser'));
+      } catch(e) {
+        localStorage.removeItem('keranjangUser');
+      }
+    }
+  },
+  methods: {
+    saveKeranjang(idProduct, nameProduct, priceProduct, photoProduct) {
+      var productStored = {
+        "id": idProduct,
+        "name": nameProduct,
+        "price": priceProduct,
+        "photo": photoProduct
+      }
+
+      this.keranjangUser.push(productStored);
+      const parsed = JSON.stringify(this.keranjangUser);
+      localStorage.setItem('keranjangUser', parsed);
+
+      window.location.reload();
+    }
   },
 };
 </script>
