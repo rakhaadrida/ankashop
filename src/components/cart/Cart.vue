@@ -112,7 +112,7 @@
                   </li>
                   <li class="subtotal mt-3">
                     Nama Penerima
-                    <span>Shayna</span>
+                    <span>Rakha</span>
                   </li>
                 </ul>
                 <!-- <router-link to="/success"> -->

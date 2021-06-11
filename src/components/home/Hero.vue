@@ -64,3 +64,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.hero-section {
+  margin-top: -35px;
+}
+</style>

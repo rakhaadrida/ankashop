@@ -117,6 +117,10 @@ export default {
 </script>
 
 <style scoped>
+.inner-header {
+  margin-top: -35px;
+}
+
 .photo-item{
   width: 80px;
   height: 80px;
